@@ -17,13 +17,19 @@ class Command(BaseCommand):
             default=DEFAULT_DB_ALIAS,
             help=f'Performs a migration order sanity check on the given database.Defaults to the "{DEFAULT_DB_ALIAS}" database.',
         )
+        parser.add_argument(
+            "--skip-history-check",
+            action="store_true",
+            help="Skip comparision with the already applied migrations.",
+        )
 
     def handle(self, *args, **options):
         database = options['database']
         connection = connections[database]
         loader = self.prepare_loader()
         self._check_migration_files(loader)
-        self._check_migration_history(loader, connection)
+        if not options["skip-history-check"]:
+            self._check_migration_history(loader, connection)
 
 
     def prepare_loader(self):
