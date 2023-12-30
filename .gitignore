@@ -1,0 +1,13 @@
+
+# 1. Exclude Any thing starting with a period(.)
+.*
+
+# 2. Files ending with .pyc
+*.pyc
+
+
+# 3.  Inlcude .gitignore, Always keep it below 1
+!.gitignore
+
+# 4. Include github folder and sub folders/files
+!.github/
