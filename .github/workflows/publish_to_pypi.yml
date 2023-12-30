@@ -2,7 +2,7 @@ name: (Pypi) Publish Inspector 👮🏽‍♀️ distribution 📦
 on:
   push:
     branches:
-      - 'release-*'
+      - 'main'
 
 jobs:
   build:
