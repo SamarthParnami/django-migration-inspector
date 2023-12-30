@@ -28,7 +28,7 @@ jobs:
         name: ${{vars.PACKAGE_NAME}}
         path: dist/
 
-publish-to-testpypi:
+  publish-to-testpypi:
     name: Publish distribution 📦 to TestPyPI
     needs:
     - build
