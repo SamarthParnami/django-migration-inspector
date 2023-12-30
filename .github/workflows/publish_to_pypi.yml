@@ -1,4 +1,4 @@
-name: Publish Inspector 👮🏽‍♀️ distribution 📦 to Pypi
+name: (Pypi) Publish Inspector 👮🏽‍♀️ distribution 📦
 on:
   push:
     branches:

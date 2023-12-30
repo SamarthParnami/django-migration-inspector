@@ -1,4 +1,4 @@
-name: Publish Inspector 👮🏽‍♀️ distribution 📦 to Test Pypi
+name: (Test Pypi) Publish Inspector 👮🏽‍♀️ distribution 📦
 on:
   workflow_dispatch:
     branches: [alpha]
