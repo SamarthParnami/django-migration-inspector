@@ -23,7 +23,7 @@ To use Django-Migration-Inspector, run the following command in your Django proj
 ```bash
 python manage.py inspectmigrations
 ```
-This command will analyze and validate your migration files, providing feedback on their validity.'
+This command will analyze and validate your migration files, providing feedback on their validity.
 
 ## Support and Issues
 For bug reports, feature requests, or general questions, please use the [GitHub Issues](https://github.com/SamarthParnami/django-migration-inspector/issues).
