@@ -13,6 +13,10 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+dependencies = [
+  "django>=3.2.0"
+]
+
 [project.urls]
 Homepage = "https://github.com/SamarthParnami/django-migration-inspector"
 Issues = "https://github.com/SamarthParnami/django-migration-inspector/issues"
