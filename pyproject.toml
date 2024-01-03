@@ -6,7 +6,7 @@ authors = [
 ]
 description = "Django extension to inspect validity of migration files"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.6"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: BSD License",
@@ -25,3 +25,6 @@ Issues = "https://github.com/SamarthParnami/django-migration-inspector/issues"
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.poetry.dependencies]
+django = ">=3.2.0"

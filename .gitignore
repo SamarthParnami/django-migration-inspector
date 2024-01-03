@@ -11,3 +11,9 @@
 
 # 4. Include github folder and sub folders/files
 !.github/
+
+# 5. Dist files
+/dist
+
+# 6. Egg-Info files
+src/django_migration_inspector.egg-info
