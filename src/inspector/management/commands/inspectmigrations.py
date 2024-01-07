@@ -2,20 +2,23 @@ from django.conf import settings
 from django.core.management.base import BaseCommand, CommandParser
 from django.db.migrations.loader import MigrationLoader
 from django.db.migrations.exceptions import CircularDependencyError, NodeNotFoundError, InconsistentMigrationHistory
-from inspector.utils import InspectorConnectionHandler
+from django.db.utils import ConnectionHandler
+
 from .constants import (DEFAULT_DB_ALIAS, CIRCULAR_DEPENDENCY_ERROR_MESSAGE, NODE_NOT_FOUND_ERROR_MESSAGE,
                     MULTIPLE_LEAF_NODE_ERROR_MESSAGE)
 
-connections = InspectorConnectionHandler()
+connections = ConnectionHandler()
 
 class Command(BaseCommand):
-    help = "Checks the migrations for the list of all apps"
+    help = "Inspect migration files for the installed apps"
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument(
             '--database',
             default=DEFAULT_DB_ALIAS,
-            help=f'Performs a migration order sanity check on the given database.Defaults to the "{DEFAULT_DB_ALIAS}" database.',
+            help='Configure Database for source of already applied migrations. '
+            f'Defaults to the "{DEFAULT_DB_ALIAS}" database. '
+            '(Required only when --skip-history-check is not passed.)',
         )
         parser.add_argument(
             "--skip-history-check",
@@ -28,7 +31,7 @@ class Command(BaseCommand):
         connection = connections[database]
         loader = self.prepare_loader()
         self._check_migration_files(loader)
-        if not options["skip-history-check"]:
+        if not options.get("skip-history-check"):
             self._check_migration_history(loader, connection)
 
 
@@ -40,6 +43,11 @@ class Command(BaseCommand):
             exit(1)
         except NodeNotFoundError as e:
             self.stderr.write(NODE_NOT_FOUND_ERROR_MESSAGE.format(exception = str(e)))
+            exit(1)
+        except Exception as e:
+            self.stderr.write(str(e))
+            self.stderr.write("Unhandled exception found while loading migrations."
+            " Please raise the issue with developer on https://github.com/SamarthParnami/django-migration-inspector/issues")
             exit(1)
 
         return loader
@@ -58,4 +66,9 @@ class Command(BaseCommand):
             loader.check_consistent_history(connection)
         except InconsistentMigrationHistory as e:
             self.stderr.write(str(e))
+            exit(1)
+        except Exception as e:
+            self.stderr.write(str(e))
+            self.stderr.write("An exception was raised while inspecting historial mirgrations."
+            "If you believe this is a bug/missing feature, Please raise the issue with developer on https://github.com/SamarthParnami/django-migration-inspector/issues")
             exit(1)

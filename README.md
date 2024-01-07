@@ -7,8 +7,8 @@ Django-Migration-Inspector is a Python package that allows you to validate Djang
 ## Features
 
 - Validates whether Django migration files refer to valid files when defining dependencies or run-after.
-- Validates the depdency graph of the migration tree.
-- Ensured that migration history for the prjoect on DB is linear.
+- Validates the dependency graph of the migration tree.
+- Ensured that migration history for the project on DB is linear.
 - Easy to integrate into your Django project.
 
 ## Installation
@@ -20,32 +20,28 @@ pip install django-migration-inspector
 ```
 
 ## Usage
-To use Django-Migration-Inspector, run the following command in your Django project:
+Add `inspector` to the INSTALLED_APPS inside the Django settings.
 
-!! You must configure `INSPECTOR_DATABASES` in settings with nested dictionary conataining the options for an individual database.
-```python
-INSPECTOR_DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "mydatabase",
-        "USER": "mydatabaseuser",
-        "PASSWORD": "mypassword",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
-    }
-}
-```
+
+To use Django-Migration-Inspector, run the following command in your Django project:
 
 ```bash
 python manage.py inspectmigrations
 ```
-To run all the migration checks including the migration history validation on the 'default' database.
+To run all the migration checks.
 
 
 ```bash
 python manage.py inspectmigrations --skip-history-check
 ```
-Skips the validation of applied migrations.
+To skip the validation of applied migrations add flag `--skip-history-check`.
+
+
+```bash
+python manage.py inspectmigrations --database=alias
+```
+Optionally you can provide the alias for the configured database in the Django settings under `DATABASES`.
+This ensures that inspection for the consistency of the already applied migrations is run from that particular Database.
 
 ## Support and Issues
 For bug reports, feature requests, or general questions, please use the [GitHub Issues](https://github.com/SamarthParnami/django-migration-inspector/issues).
