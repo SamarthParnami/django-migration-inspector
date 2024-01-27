@@ -31,3 +31,6 @@ jobs:
     uses: ./.github/workflows/github_release.yml
     needs:
         - publish-to-pypi
+    permissions:
+      contents: write
+      id-token: write
