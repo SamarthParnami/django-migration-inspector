@@ -1,32 +1,12 @@
 name: (Test Pypi) Publish Inspector 👮🏽‍♀️ distribution 📦
 on:
   workflow_dispatch:
-    branches: [alpha]
+    branches:
+      - 'test-release**'
 
 jobs:
   build:
-    name: Build distribution 📦
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.x"
-    - name: Install pypa/build
-      run: >-
-        python3 -m
-        pip install
-        build
-        --user
-    - name: Build a binary wheel and a source tarball
-      run: python3 -m build
-    - name: Store the distribution packages
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{vars.PACKAGE_NAME}}
-        path: dist/
+    uses: ./.github/workflows/package_builder.yml
 
   publish-to-testpypi:
     name: Publish distribution 📦 to TestPyPI
