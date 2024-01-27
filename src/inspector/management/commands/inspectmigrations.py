@@ -28,10 +28,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         database = options['database']
-        connection = connections[database]
         loader = self.prepare_loader()
         self._check_migration_files(loader)
-        if not options.get("skip-history-check"):
+        if not options.get("skip_history_check"):
+            connection = connections[database]
             self._check_migration_history(loader, connection)
 
 
